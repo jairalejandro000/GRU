@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import {Navigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 
-import "./../../styles.css";
+import './../../styles.css';
 
-export default function Signup(){
+export default function Sigup(){
+    const navigate = useNavigate();
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const database = [
@@ -49,32 +50,27 @@ export default function Signup(){
         <div className="form">
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
-                    <label>Name(s)</label>
+                    <label>Nombre de usuario</label>
                     <input type="text" name="uname" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <label>Lastname</label>
+                    <label>Correo electrónico</label>
                     <input type="text" name="uname" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <label>Gender</label>
+                    <label>Contraseña</label>
                     <input type="text" name="uname" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <label>Correo</label>
+                    <label>Repetir contraseña</label>
                     <input type="text" name="uname" required />
                     {renderErrorMessage("uname")}
-                </div>
-                <div className="input-container">
-                    <label>Password</label>
-                    <input type="password" name="pass" required />
-                    {renderErrorMessage("pass")}
                 </div>
                 <div className="button-container">
-                    <input type="submit" />
+                    <input type="submit" value="Registrarse"/>
                 </div>
             </form>
         </div>
@@ -82,8 +78,9 @@ export default function Signup(){
     return (
         <div className="app">
             <div className="signup-form">
-                <div className="title">Sign Up</div>
+                <div className="title">REGISTRO</div>
                 {isSubmitted ? <Navigate to="/" /> : renderForm}
+                <p onClick={() => navigate.push('/')}>¿Ya tienes cuenta Inicia sesión ahora?</p>
             </div>
         </div>
     );

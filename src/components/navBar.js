@@ -7,7 +7,7 @@ export default function navBar(){
                 <li>
                     <NavLink to='/'>Home</NavLink>
                     <NavLink to='/auth/login'>Login</NavLink>
-                    <NavLink to='/auth/signup'>Register</NavLink>
+                    <NavLink to='/auth/signup'>Signup</NavLink>
                 </li>
             </ul>
         </div>

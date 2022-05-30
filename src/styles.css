@@ -5,46 +5,56 @@
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    height: 100vh;
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    background-color: #f8f9fd;
+    height: 92vh;
+    background-color: rgba(56, 55, 55, 0.463);
   }
-  
+ 
   input[type="text"],
   input[type="password"] {
     height: 25px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
   
   input[type="submit"] {
     margin-top: 10px;
     cursor: pointer;
     font-size: 15px;
-    background: #01d28e;
-    border: 1px solid #01d28e;
-    color: #fff;
-    padding: 10px 20px;
+    color: #000000;
+    border-radius: 10px;
+    padding: 10px 30px;
   }
   
   input[type="submit"]:hover {
-    background: #6cf0c2;
+    background: #00000088;
   }
   
   .button-container {
     display: flex;
     justify-content: center;
   }
-  
+
+  .button-container input{
+    background-color: #FBE940;
+  }
   .login-form {
     background-color: white;
-    padding: 2rem;
+    padding: 3rem;
+    width: 20%;
+    height: auto;
+    margin-left: 35%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 70px;
   }
 
   .signup-form {
     background-color: white;
-    padding: 2rem;
+    padding: 3rem;
+    width: 20%;
+    height: auto;
+    margin-left: 35%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 70px;
   }
   
   .list-container {

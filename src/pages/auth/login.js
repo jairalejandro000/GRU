@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {Navigate } from 'react-router-dom';
+import {Navigate, useNavigate } from 'react-router-dom';
 
 import "./../../styles.css";
 
 
 export default function Login(){
+    const navigate = useNavigate();
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-
     // User Login info
     const database = [
         {
@@ -43,10 +43,9 @@ export default function Login(){
         }
     };
     // Generate JSX code for error message
-    const renderErrorMessage = (name) =>
-        name === errorMessages.name && (
+    const renderErrorMessage = (name) => name === errorMessages.name && (
         <div className="error">{errorMessages.message}</div>
-        );
+    );
     // JSX code for login form
     const renderForm = (
         <div className="form">
@@ -62,7 +61,7 @@ export default function Login(){
                     {renderErrorMessage("pass")}
                 </div>
                 <div className="button-container">
-                    <input type="submit" />
+                    <input type="submit" value="Iniciar sesión"/>
                 </div>
             </form>
         </div>
@@ -70,8 +69,10 @@ export default function Login(){
     return (
         <div className="app">
             <div className="login-form">
-                <div className="title">Sign In</div>
-                {isSubmitted ? <Navigate to="/" /> : renderForm}
+                <div className="title">INICIO DE SESIÓN</div>
+                {isSubmitted ? <Navigate to="/"/> : renderForm}
+                <br/>
+                <p onClick={() => navigate.push('/')}>¿No tienes cuenta Regístrate ahora?</p>
             </div>
         </div>
     );
