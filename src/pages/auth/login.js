@@ -39,6 +39,7 @@ export default function Login(){
             }
         }else {
             // Username not found
+            setIsSubmitted(true)
             setErrorMessages({ name: "uname", message: errors.uname });
         }
     };
@@ -70,7 +71,7 @@ export default function Login(){
         <div className="app">
             <div className="login-form">
                 <div className="title">INICIO DE SESIÓN</div>
-                {isSubmitted ? <Navigate to="/"/> : renderForm}
+                {isSubmitted ? <Navigate to="/panel/panel"/> : renderForm}
                 <br/>
                 <p onClick={() => navigate.push('/')}>¿No tienes cuenta Regístrate ahora?</p>
             </div>
