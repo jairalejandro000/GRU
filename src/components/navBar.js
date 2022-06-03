@@ -2,7 +2,11 @@ import { NavLink } from 'react-router-dom';
 
 export default function navBar(){
     return(
-        <div>
+        <div className="navBar">
+            <div className="nombreApp">GRU <div className="nombreNav">Sistema de Desempeño Laboral</div></div>
+        </div>
+
+        /* <div>
             <ul>
                 <li>
                     <NavLink to='/'>Home</NavLink>
@@ -10,6 +14,6 @@ export default function navBar(){
                     <NavLink to='/auth/signup'>Signup</NavLink>
                 </li>
             </ul>
-        </div>
+        </div> */
     )
 }

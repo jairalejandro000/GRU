@@ -21,7 +21,7 @@ export default function Login(){
           .then(res => {
             console.log(res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
-                navigate('/auth/signup')
+                navigate('/panel/panel')
             }
           })
           //setIsSubmitted(true);
@@ -58,7 +58,7 @@ export default function Login(){
                 <div className="title">INICIO DE SESIÓN</div>
                 {renderForm}
                 <br/>
-                <p onClick={() => navigate.push('/')}>¿No tienes cuenta Regístrate ahora?</p>
+                <p>¿No tienes cuenta? <a href="/auth/signup">Regístrate ahora</a></p>
             </div>
         </div>
     );
