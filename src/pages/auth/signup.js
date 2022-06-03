@@ -51,23 +51,19 @@ export default function Sigup(){
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <label>Nombre de usuario</label>
-                    <input type="text" name="uname" required />
-                    {renderErrorMessage("uname")}
+                    <input type="text" name="uname"  />
                 </div>
                 <div className="input-container">
                     <label>Correo electrónico</label>
-                    <input type="text" name="uname" required />
-                    {renderErrorMessage("uname")}
+                    <input type="text" name="uname"  />
                 </div>
                 <div className="input-container">
                     <label>Contraseña</label>
-                    <input type="text" name="uname" required />
-                    {renderErrorMessage("uname")}
+                    <input type="text" name="uname"  />
                 </div>
                 <div className="input-container">
                     <label>Repetir contraseña</label>
-                    <input type="text" name="uname" required />
-                    {renderErrorMessage("uname")}
+                    <input type="text" name="uname"  />
                 </div>
                 <div className="button-container">
                     <input type="submit" value="Registrarse"/>
