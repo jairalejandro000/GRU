@@ -10,7 +10,7 @@ export default function Login(){
     const navigate = useNavigate();
     //const [errorMessages] = useState({});
     //const [isSubmitted, setIsSubmitted] = useState(false);
-    const [values, setValues, setItem] = React.useState({
+    const [values, setValues] = React.useState({
         email: "",
         password: ""
       });
@@ -25,7 +25,7 @@ export default function Login(){
                 navigate('/panel/panel');
             }
             else{
-                alertService.info('Algo ha salido mal',{ autoClose: false, keepAfterRouteChange: true });
+                alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
             }
           })
           //setIsSubmitted(true);
