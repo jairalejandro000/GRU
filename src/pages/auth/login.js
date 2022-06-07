@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-//import { Redirect } from 'react-router-dom';
+import { alertService } from '../../_services/alert.service';
 
 import "./../../styles.css";
 
@@ -19,10 +19,13 @@ export default function Login(){
         console.log(values);
         axios.post(`http://127.0.0.1:8000/api/auth/login`, values)
           .then(res => {
-            console.log(res);
+            console.log('resssss',res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
                 localStorage.setItem('token', res.data.data.token);
                 navigate('/panel/panel')
+            }
+            else{
+                alertService.info('Algo ha salido mal',{ autoClose: false, keepAfterRouteChange: true });
             }
           })
           //setIsSubmitted(true);

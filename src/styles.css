@@ -89,3 +89,12 @@
     font-size: 25px;
     margin-bottom: 10px;
   }
+
+  #alert {
+    background-color: #FBE940;
+    float: initial;
+    display: inherit;
+    border-radius: 10px;
+    text-align: center;
+    height: 30px;
+  }
