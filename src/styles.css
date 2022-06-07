@@ -14,7 +14,7 @@
   input[type="password"] {
     height: 25px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
+    border-radius: 8px;
   }
   
   input[type="submit"] {
@@ -22,7 +22,7 @@
     cursor: pointer;
     font-size: 15px;
     color: #000000;
-    border-radius: 10px;
+    border-radius: 15px;
     border-style: none;
     padding: 10px 30px;
   }

@@ -10,9 +10,9 @@ export default function Login(){
     const navigate = useNavigate();
     //const [errorMessages] = useState({});
     //const [isSubmitted, setIsSubmitted] = useState(false);
-    const [values, setValues] = React.useState({
+    const [values, setValues, setItem] = React.useState({
         email: "",
-        password: "",
+        password: ""
       });
       function handleSubmit(evt) {
         evt.preventDefault();
@@ -21,6 +21,7 @@ export default function Login(){
           .then(res => {
             console.log(res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
+                localStorage.setItem('token', res.data.data.token);
                 navigate('/panel/panel')
             }
           })
@@ -39,11 +40,11 @@ export default function Login(){
         <div className="form">
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
-                    <label>Username </label>
+                    <label>Correo electrónico</label>
                     <input type="email" name="email" onChange={handleChange} required />
                 </div>
                 <div className="input-container">
-                    <label>Password </label>
+                    <label>Contraseña</label>
                     <input type="password" name="password" onChange={handleChange} required />
                 </div>
                 <div className="button-container">
@@ -57,7 +58,6 @@ export default function Login(){
             <div className="login-form">
                 <div className="title">INICIO DE SESIÓN</div>
                 {renderForm}
-                <br/>
                 <p>¿No tienes cuenta? <a href="/auth/signup">Regístrate ahora</a></p>
             </div>
         </div>
