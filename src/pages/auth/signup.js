@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { alertService } from '../../_services/alert.service';
 
 import './../../styles.css';
 
@@ -18,6 +19,9 @@ export default function Sigup(){
             console.log(res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
                 navigate('/auth/login')
+            }
+            else {
+                alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
             }
           })
          

@@ -1,4 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { history } from './_helpers/history';
+import { Alert } from './_components/Alert';
 
 import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
@@ -9,8 +11,9 @@ import PageNotFound from './pages/others/pageNotFound';
 import Navbar from './components/navBar';
 export default function app() {
     return (
-        <Router>
+        <Router history={history}>
             <Navbar/>
+            <Alert />
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/auth/' >
