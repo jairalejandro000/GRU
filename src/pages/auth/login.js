@@ -22,7 +22,7 @@ export default function Login(){
             console.log(res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
                 localStorage.setItem('token', res.data.data.token);
-                navigate('/panel/panel')
+                navigate('/panel/panel');
             }
           })
           //setIsSubmitted(true);
