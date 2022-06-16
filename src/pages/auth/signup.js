@@ -14,7 +14,7 @@ export default function Sigup(){
       });
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://127.0.0.1:8000/api/auth/signup`, values)
+        axios.post(`http://165.227.181.97:80/api/auth/signup`, values)
           .then(res => {
             console.log(res);
             if(res.data.status === true && res.data.msg === "Hecho!"){

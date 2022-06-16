@@ -17,7 +17,7 @@ export default function Login(){
       function handleSubmit(evt) {
         evt.preventDefault();
         console.log(values);
-        axios.post(`http://127.0.0.1:8000/api/auth/login`, values)
+        axios.post(`http://165.227.181.97:80/api/auth/login`, values)
           .then(res => {
             console.log('resssss',res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
