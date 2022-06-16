@@ -25,7 +25,7 @@ export default function Login(){
                 navigate('/panel/panel');
             }
             else{
-                alertService.info('Algo ha salido mal',{ autoClose: false, keepAfterRouteChange: true });
+                alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
             }
           })
           //setIsSubmitted(true);
