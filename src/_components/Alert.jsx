@@ -103,7 +103,7 @@ class Alert extends React.Component {
         return (
             <div className="m-3" id='alert'>
                 {alerts.map((alert, index) =>
-                    <div key={index} className={this.cssClasses(alert)}>
+                    <div key={index} className={this.cssClasses(alert)} id="divAlert">
                         <a className="close" onClick={() => this.removeAlert(alert)}>&times;</a>
                         <span dangerouslySetInnerHTML={{__html: alert.message}}></span>
                     </div>
