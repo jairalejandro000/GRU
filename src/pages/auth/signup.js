@@ -16,15 +16,13 @@ export default function Sigup(){
         event.preventDefault();
         axios.post(`http://165.227.181.97:80/api/auth/signup`, values)
           .then(res => {
-            console.log(res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
                 navigate('/auth/login')
             }
             else {
-                alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
+                alertService.info('Algo ha salido mal',{ autoClose: false, keepAfterRouteChange: true });
             }
           })
-         
     };
     function handleChange(evt) {
         const { target } = evt;
