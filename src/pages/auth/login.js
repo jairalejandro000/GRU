@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { alertService } from '../../_services/alert.service';
+import auth from '../../auth';
 
 import "./../../styles.css";
 
@@ -22,6 +23,7 @@ export default function Login(){
             console.log('resssss',res);
             if(res.data.status === true && res.data.msg === "Hecho!"){
                 localStorage.setItem('token', res.data.data.token);
+                auth.login();
                 navigate('/panel/panel');
             }
             else{

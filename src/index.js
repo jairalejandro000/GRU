@@ -10,7 +10,7 @@ const DEBUG = process.env.REACT_APP_NODE_ENV !== 'production';
 
 axios.interceptors.request.use((request) => {
   console.log(request);
-  //request.headers.channelName = '';
+  request.headers.token = localStorage.getItem('token');;
   return request;
 },(error) => {
   if (error?.status?.code === 401) {
@@ -22,10 +22,10 @@ axios.interceptors.request.use((request) => {
    //dispatch your error in a more user friendly manner
      if (DEBUG) {
        //Aqui mostrar la alerta de que algo trono
-     //easier debugging
-     console.group('Error');
-     console.log(error);
-     console.groupEnd();
+      //easier debugging
+      console.group('Error');
+      console.log(error);
+      console.groupEnd();
     }
  }
 });
