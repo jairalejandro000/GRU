@@ -109,9 +109,15 @@
   #divAlert {
     height: 100%;
     font-size: 18px;
-    padding-top: 3.5%;
+    display: flex;
+    align-items: center;
   }
   .close{
     position: fixed;
     left: 28%;
+  }
+  #spann {
+    position: fixed;
+    left: 40%;
+    width: 20%;
   }
