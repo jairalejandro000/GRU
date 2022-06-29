@@ -2,7 +2,6 @@ import React from 'react';
 import './../../styles.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
-import auth from '../../auth';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -67,7 +66,7 @@ export default function Panel(){
           }
     });
     return (
-        <div className='app' style={{ width: "70%",height: "50%" }}>
+        <div className='app' style={{ width: "70%", height: "50%" }}>
             <Bar data={data} options={options}/>
             <Button onClick={() => {handleModal()}}>Open modal</Button>
             <Modal show={state}>

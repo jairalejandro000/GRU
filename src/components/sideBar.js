@@ -3,9 +3,10 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 
 import Panel from '../pages/panel/panel';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 
 import './style.css';
+import { Button } from 'react-bootstrap';
 
 export default function SideBar(){
   const [value, setHidden] = useState({
@@ -36,10 +37,10 @@ export default function SideBar(){
         <NavLink to='/auth/login'>Indicadores</NavLink>
         <NavLink to='/auth/login'>Categorías</NavLink>
       </div>
-      <div id='main'>
+      <div id='main' className='main'>
         <div className='toolbar'>
         {value.showBurguer ? <button className='openbtn' onClick={openNav}><GiHamburgerMenu/></button>  : null}
-          <FaRegUserCircle styles={'color: white'}/>
+        <FaUserCircle size={35} style={{ fill: 'white', float: 'right', margin: 20 }}/>
         </div>
         <Routes>
             <Route path='/' element={<Panel/>}/>
