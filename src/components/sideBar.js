@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, NavLink } from 'react-router-dom';
 
 import Panel from '../pages/panel/panel';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -8,12 +8,10 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import './style.css';
 
 export default function SideBar(){
-  const [value, setHidden] = React.useState({
+  const [value, setHidden] = useState({
     showBurguer: true
   });
   function handleChange(val) {
-    //const { target } = evt;
-    //const { showBurguer, value } = target;
     const newValues = {
       ['showBurguer']: val,
     };
@@ -29,22 +27,14 @@ export default function SideBar(){
     document.getElementById('mySidebar').style.width = '0';
     document.getElementById('main').style.marginLeft= '0';
   }
-  const logIn = () => {
-    console.log('login')
-  }
-  const signUp = () => {
-    console.log('signup')
-  }
-  const ShowHistory = () => {
-    console.log('history')
-  }
   return (
     <div>
       <div id='mySidebar' className='sidebar'>
         <a className='closebtn' onClick={closeNav}><GiHamburgerMenu/></a>
-        <a onClick={logIn}>About</a>
-        <a onClick={signUp}>Services</a>
-        <a onClick={ShowHistory}>Historial</a>
+        <NavLink to='/auth/login'>Ranking</NavLink>
+        <NavLink to='/auth/login'>Usuarios</NavLink>
+        <NavLink to='/auth/login'>Indicadores</NavLink>
+        <NavLink to='/auth/login'>Categorías</NavLink>
       </div>
       <div id='main'>
         <div className='toolbar'>
