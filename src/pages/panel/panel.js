@@ -1,9 +1,8 @@
-import React from "react";
-//import {Navigate, useNavigate } from 'react-router-dom';
-import "./../../styles.css";
-//import minion from '../../assets/minion_home.jpg';
+import React from 'react';
+import './../../styles.css';
 import { useNavigate } from 'react-router-dom';
-import { useMemo } from "react";
+import { Button, Modal } from 'react-bootstrap';
+import auth from '../../auth';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,25 +29,31 @@ ChartJS.register(
   );
 
 export default function Panel(){
+    var state = false;
+    const handleModal = () => ({
+        state: true
+    });
+    /*var a = auth;
+    console.log(a.authenticated.version);
+    console.log(a.authenticated.value);
     const dataMinions = [
         { name: 'jair', points: 12 },
         { name: 'Adriana', points: 13 },
         { name: 'Capito', points: 11 },
         { name: 'Kappita', points: 16 },
         { name: 'Ferlozzzzz', points: 0 },
-    ]
+    ]*/
     const data = {
         labels: ['Jair', 'Adriana', 'Capito', 'Kappita', 'Ferlozzzz'],
         datasets: [{
             labels: 'Desempeño',
-            backgroundColor: '#FFFFFF',
-            hoverBackgroundColor: '#FBE940',
+            hoverBackgroundColor: '#FFFFFF',
+            backgroundColor: '#FBE940',
             data: [12, 13, 11, 16, 1]
         }]
     }
     const options = {
         fill: true,
-        //animated: true,
         maintainAspectRation: true,
         responsive: true
     }
@@ -56,11 +61,20 @@ export default function Panel(){
     React.useEffect(() => {
         if (localStorage.getItem('token') == null) {
             navigate('/');
+          }else{
+            //console.log(atob(localStorage.getItem('user')));
+            //console.log(decodeURI(localStorage.getItem('token')));
           }
     });
     return (
         <div className='app' style={{ width: "70%",height: "50%" }}>
-          <Bar data={data} options={options}/>  
+            <Bar data={data} options={options}/>
+            <Button onClick={() => {handleModal()}}>Open modal</Button>
+            <Modal show={state}>
+            <Modal.Header>Prueba</Modal.Header>
+            <Modal.Body>Prueba</Modal.Body>
+            <Modal.Footer>Prueba</Modal.Footer>
+            </Modal>
         </div>
     );
 }

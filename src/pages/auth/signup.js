@@ -7,20 +7,26 @@ import './../../styles.css';
 
 export default function Sigup(){
     const navigate = useNavigate();
+    React.useEffect(() => {
+        if (localStorage.getItem('token') != null) {
+            navigate('/panel/panel');
+          }
+    });
     const [values, setValues] = React.useState({
-        name: "",
+        username: "",
         email: "",
         password: "",
       });
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://165.227.181.97:80/api/auth/signup`, values)
+        console.log(values);
+        axios.post(`http://127.0.0.1:8000/api/auth/signup`, values)
           .then(res => {
-            if(res.data.status === true && res.data.msg === "Hecho!"){
+            console.log("ress", res);
+            if(res.data.msg === "Hecho!"){
                 navigate('/auth/login')
-            }
-            else {
-                alertService.info('Algo ha salido mal',{ autoClose: false, keepAfterRouteChange: true });
+            }else{
+                alertService.info(res.data.original.msg.email,{ autoClose: false, keepAfterRouteChange: true });
             }
           })
     };

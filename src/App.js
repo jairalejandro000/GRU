@@ -5,14 +5,12 @@ import { Alert } from './_components/Alert';
 import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
 import Home from './pages/home/home';
-import Panel from './pages/panel/panel';
+import Panel from './components/sideBar';
 import PageNotFound from './pages/others/pageNotFound';
 
-import Navbar from './components/navBar';
 export default function app() {
     return (
         <Router history={history}>
-            <Navbar/>
             <Alert />
             <Routes>
                 <Route path='/' element={<Home/>}/>
@@ -20,8 +18,9 @@ export default function app() {
                     <Route path='login' element={<Login/>}/>
                     <Route path='signup' element={<Signup/>}/>
                 </Route>
-                <Route path='/panel/' >
-                    <Route path='panel' element={<Panel/>}/>
+                <Route path='/panel/'>
+                    <Route path='panel' element={<Panel/>}>
+                    </Route>
                 </Route>
                 <Route path='*' element={<PageNotFound/>}/>
             </Routes>

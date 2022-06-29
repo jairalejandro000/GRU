@@ -2,13 +2,17 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { alertService } from '../../_services/alert.service';
-import auth from '../../auth';
 
 import "./../../styles.css";
 
 
 export default function Login(){
     const navigate = useNavigate();
+    React.useEffect(() => {
+        if (localStorage.getItem('token') != null) {
+            navigate('/panel/panel');
+          }
+    });
     //const [errorMessages] = useState({});
     //const [isSubmitted, setIsSubmitted] = useState(false);
     const [values, setValues] = React.useState({
@@ -18,17 +22,19 @@ export default function Login(){
       function handleSubmit(evt) {
         evt.preventDefault();
         console.log(values);
-        axios.post(`http://165.227.181.97:80/api/auth/login`, values)
-          .then(res => {
+        axios.post(`http://127.0.0.1:8000/api/auth/login`, values)
+        .then(res => {
             console.log('resssss',res);
-            if(res.data.status === true && res.data.msg === "Hecho!"){
-                localStorage.setItem('token', res.data.data.token);
-                auth.login();
+            if(res.data.msg === "Hecho!"){
+                var token = encodeURI(res.data.data.token);
+                var role = btoa(res.data.data.user.role.name);
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', role); 
+                //a.login();
                 navigate('/panel/panel');
             }
-            else{
-                alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
-            }
+          }, (error) => {
+            alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
           })
           //setIsSubmitted(true);
       }
