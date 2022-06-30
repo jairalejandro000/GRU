@@ -18,10 +18,7 @@ export default function app() {
                     <Route path='login' element={<Login/>}/>
                     <Route path='signup' element={<Signup/>}/>
                 </Route>
-                <Route path='/panel/'>
-                    <Route path='panel/*' element={<Panel/>}>
-                    </Route>
-                </Route>
+                <Route path='/panel/*' element={<Panel/>}/>
                 <Route path='*' element={<PageNotFound/>}/>
             </Routes>
         </Router>

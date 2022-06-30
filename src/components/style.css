@@ -37,17 +37,16 @@
 }
 
 .openbtn {
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.773);
   color: white;
-  padding: 10px 15px;
+  margin: 10px;
   border: none;
 }
 
-.openbtn:hover {
-  background-color: #444;
-}
+/*.openbtn:hover {
+  font-size: 25px;
+}*/
 
 #main {
   transition: margin-left .5s;

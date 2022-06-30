@@ -66,7 +66,7 @@ export default function Panel(){
           }
     });
     return (
-        <div className='app' style={{ width: "70%", height: "50%" }}>
+        <div className='app' style={{ width: "70%", height: "50%", marginTop: "10%" }}>
             <Bar data={data} options={options}/>
             <Button onClick={() => {handleModal()}}>Open modal</Button>
             <Modal show={state}>
