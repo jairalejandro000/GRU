@@ -37,6 +37,28 @@ export default function SideBar(){
     document.getElementById('mySidebar').style.width = '0';
     document.getElementById('main').style.marginLeft= '0';
   }
+  const dropDown = () => {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+  const profile = () => {
+    console.log("ver perfil");
+  }
+  const logOut = () => {
+    localStorage.clear();
+    
+  }
   var role = atob(localStorage.getItem('user'));
   var a = false;
   if(role === 'minion'){
@@ -49,20 +71,27 @@ export default function SideBar(){
       <div id='mySidebar' className='sidebar'>
         <img src={gru} style={{width: 150, height: 'auto'}}/>
         <NavLink to='/auth/login'>Ranking</NavLink>
-        {a ? <NavLink to='panel/panel/users'>Usuarios</NavLink> : null}
+        {a ? <NavLink to='/panel/users'>Usuarios</NavLink> : null}
         {a ? <NavLink to='/auth/login'>Indicadores</NavLink> : null}
         {a ? <NavLink to='/auth/login'>Categorías</NavLink> : null}
       </div>
       <div id='main' className='main'>
         <div className='toolbar'>
-        <GiHamburgerMenu className='openbtn' onClick={clickButton}/>
-        <h1 style={{fontSize: 50, margin: 20, color: 'white', display: 'inline'}}>GRU</h1>
-        <p style={{fontSize: 20,margin: 20, color: 'white', display: 'inline'}}>Sistema de Gestion de Rendimiento Umano</p>
-        <FaUserCircle size={35} style={{fill: 'white', float: 'right', margin: 20, display: 'inline'}}/>
+          <GiHamburgerMenu className='openbtn' onClick={clickButton}/>
+          <h1 style={{fontSize: 50, margin: 20, color: 'white', display: 'inline'}}>GRU</h1>
+          <p style={{fontSize: 20,margin: 20, color: 'white', display: 'inline'}}>Sistema de Gestion de Rendimiento Umano</p>
+          <div style={{fill: 'white', float: 'right', margin: 20, display: 'inline'}} >
+          <FaUserCircle onClick={dropDown} size={35} className="dropbtn"/>
+          <div id="myDropdown" className="dropdown-content">
+            <a onClick={profile}>Perfil</a>
+            <a onClick={logOut}>Cerrar sesión</a>
+          </div>
+          </div>
         </div>
         <Routes>
             <Route path='panel' element={<Panel/>}/>
             <Route path='users' element={<Users/>}/>
+            <Route path='*' element={<Panel/>}/>
         </Routes>
       </div>
     </div>
