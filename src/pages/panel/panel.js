@@ -28,6 +28,7 @@ ChartJS.register(
   );
 
 export default function Panel(){
+    console.log(decodeURI(localStorage.getItem('token')))
     var state = false;
     const handleModal = () => ({
         state: true
@@ -60,9 +61,6 @@ export default function Panel(){
     React.useEffect(() => {
         if (localStorage.getItem('token') == null) {
             navigate('/');
-          }else{
-            //console.log(atob(localStorage.getItem('user')));
-            //console.log(decodeURI(localStorage.getItem('token')));
           }
     });
     return (

@@ -1,16 +1,19 @@
 import React from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 
 import Panel from '../pages/panel/panel';
 import Users from '../pages/panel/users';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa';
+import { BiHomeAlt } from 'react-icons/bi';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 import './style.css';
 import gru from '../assets/gru.png';
 
 export default function SideBar(){
+  const navigate = useNavigate();
   const [value, setHidden] = React.useState({
     showBurguer: true
   });
@@ -38,11 +41,12 @@ export default function SideBar(){
     document.getElementById('main').style.marginLeft= '0';
   }
   const dropDown = () => {
-    document.getElementById("myDropdown").classList.toggle("show");
+    console.log("prueba")
+    document.getElementById('myDropdown').classList.toggle('show');
   }
   window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var dropdowns = document.getElementsByClassName('dropdown-content');
       var i;
       for (i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];
@@ -57,7 +61,10 @@ export default function SideBar(){
   }
   const logOut = () => {
     localStorage.clear();
-    
+    navigate('/');
+  }
+  const ranking = () => {
+    navigate('/panel/panel')
   }
   var role = atob(localStorage.getItem('user'));
   var a = false;
@@ -69,8 +76,9 @@ export default function SideBar(){
   return (
     <div>
       <div id='mySidebar' className='sidebar'>
-        <img src={gru} style={{width: 150, height: 'auto'}}/>
-        <NavLink to='/auth/login'>Ranking</NavLink>
+        <button className='home' onClick={ranking}>
+        <BiHomeAlt size={35}/>
+        </button>
         {a ? <NavLink to='/panel/users'>Usuarios</NavLink> : null}
         {a ? <NavLink to='/auth/login'>Indicadores</NavLink> : null}
         {a ? <NavLink to='/auth/login'>Categorías</NavLink> : null}
@@ -80,12 +88,13 @@ export default function SideBar(){
           <GiHamburgerMenu className='openbtn' onClick={clickButton}/>
           <h1 style={{fontSize: 50, margin: 20, color: 'white', display: 'inline'}}>GRU</h1>
           <p style={{fontSize: 20,margin: 20, color: 'white', display: 'inline'}}>Sistema de Gestion de Rendimiento Umano</p>
-          <div style={{fill: 'white', float: 'right', margin: 20, display: 'inline'}} >
-          <FaUserCircle onClick={dropDown} size={35} className="dropbtn"/>
-          <div id="myDropdown" className="dropdown-content">
-            <a onClick={profile}>Perfil</a>
-            <a onClick={logOut}>Cerrar sesión</a>
-          </div>
+          <div className='dropdown' style={{float: 'right', margin: 20, display: 'inline'}}>
+            <FaUserAlt size={35} className='user dropbtn' onClick={dropDown}/>
+            
+            <div id='myDropdown' className='dropdown-content'>
+              <a onClick={profile}>Perfil</a>
+              <a onClick={logOut}>Cerrar sesión</a>
+            </div>
           </div>
         </div>
         <Routes>

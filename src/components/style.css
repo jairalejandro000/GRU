@@ -11,7 +11,7 @@
   background-color:#FBE940;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 30px;
 }
 
 .sidebar a {
@@ -27,9 +27,34 @@
 .sidebar a:hover {
   font-size: 30px;
 }
+.home:hover{
+  transform: scale(1.2);
+}
+.user:hover{
+  transform: scale(1.2);
+}
+.user{
+  background-color: transparent;
+  color:white;
+  transition: 0.3s;
+  cursor: pointer;
+  border:none;
+  float:right;
+}
+
+.home{
+  background-color: transparent;
+  padding: 8px 8px 8px 32px;
+  color:rgb(0, 0, 0);
+  display: block;
+  transition: 0.3s;
+  cursor: pointer;
+  border:none;
+}
+
 
 .sidebar .closebtn {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 25px;
   font-size: 36px;
@@ -60,6 +85,7 @@
   right: 0;
   height: 100%;
   width: 100%;
+  bottom: 10%;
 }
 
 @media screen and (max-height: 450px) {
@@ -68,21 +94,28 @@
 }
 
 .toolbar {
-  position: fixed;
   height: 10%;
   width: 90%;
 }
 
-.dropbtn {
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
+.toolbar button{
+  background-color: black;
+  padding: 8px 8px 8px 32px;
+  color:rgb(255, 255, 255);
+  display: block;
+  transition: 0.3s;
   cursor: pointer;
+  border:none;
+}
+
+.toolbar button:hover {
+  transform: (1.2);
 }
 
 .dropdown {
-  position: relative;
+  position: fixed;
+  left: 80%;
+  width: 10%;
   display: inline-block;
 }
 
