@@ -15,22 +15,30 @@ import "./styles.css";
 
 const columns = [
     { id: 'name', label: 'Nombre', minWidth: 170 },
-    { id: 'email', label: 'Correo electronico', minWidth: 100 },
+    { id: 'email', label: 'Correo electrónico', minWidth: 100 },
     { id: 'role', label: 'Rol', minWidth: 100 }
-  ];
-const rows = [];
-
+];
+const roles = [
+  { id: 1, name: 'Minion' },
+  { id: 2, name: 'Nefario' },
+  { id: 3, name: 'Gru' }
+];
+var rows = [];
   function createData(name, email, role) {
-    return { name, email, role };
+    var role_name = roles[role - 1].name
+    return { name, email, role_name };
   }
 export default function Users(){
     const navigate = useNavigate();
-    const getData = () => {
-        axios.get('http://127.0.0.1:8000/api/user/')
+    const getData = async () => {
+        await axios.get('http://127.0.0.1:8000/api/user/')
         .then(res => {
-            //rows = [];
+            rows = [];
             for(let e in res.data.data){
-                rows.push(createData(res.data.data[e].name, res.data.data[e].email, res.data.data[e].id));
+                rows.push(createData(
+                  res.data.data[e].name,
+                  res.data.data[e].email,
+                  res.data.data[e].role.id));
             }
         }, (error) => {
             localStorage.clear();
@@ -53,11 +61,8 @@ export default function Users(){
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    rows.map((row) =>{
-        console.log(row);
-    });
   return (
-    <div className='table-container'>
+    <div className='container'>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -65,7 +70,7 @@ export default function Users(){
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  key={column.id}
+                  key={column.email}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
@@ -76,10 +81,10 @@ export default function Users(){
           </TableHead>
           <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">{row.name}</TableCell>
               <TableCell component="th" scope="row">{row.email}</TableCell>
-              <TableCell component="th" scope="row">{row.role}</TableCell>
+              <TableCell component="th" scope="row">{row.role_name}</TableCell>
             </TableRow>
           ))}
           </TableBody>

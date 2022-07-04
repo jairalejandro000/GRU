@@ -14,29 +14,19 @@ import gru from '../assets/gru.png';
 
 export default function SideBar(){
   const navigate = useNavigate();
-  const [value, setHidden] = React.useState({
-    showBurguer: true
-  });
-  function handleChange(val) {
-    const newValues = {
-      ['showBurguer']: val
-    };
-    setHidden(newValues);
-  }
   const clickButton = () => {
-    if(value.showBurguer === true){
+    var px = document.getElementById('mySidebar').style.width
+    if(px === '0px'){
       openNav()
     }else{
       closeNav()
     }
   }
   const openNav = () => {
-    handleChange(false);
     document.getElementById('mySidebar').style.width = '250px';
     document.getElementById('main').style.marginLeft = '250px';
   }
   const closeNav = () => {
-    handleChange(true);
     document.getElementById('mySidebar').style.width = '0';
     document.getElementById('main').style.marginLeft= '0';
   }

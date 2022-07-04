@@ -29,9 +29,11 @@ ChartJS.register(
 
 export default function Panel(){
     console.log(decodeURI(localStorage.getItem('token')))
-    var state = false;
-    const handleModal = () => ({
-        state: true
+    const navigate = useNavigate();
+    React.useEffect(() => {
+        if (localStorage.getItem('token') == null) {
+            navigate('/');
+          }
     });
     /*var a = auth;
     console.log(a.authenticated.version);
@@ -57,21 +59,11 @@ export default function Panel(){
         maintainAspectRation: true,
         responsive: true
     }
-    const navigate = useNavigate();
-    React.useEffect(() => {
-        if (localStorage.getItem('token') == null) {
-            navigate('/');
-          }
-    });
     return (
-        <div className='app' style={{ width: "70%", height: "50%", marginTop: "10%" }}>
+        <div className='container'>
             <Bar data={data} options={options}/>
-            <Button onClick={() => {handleModal()}}>Open modal</Button>
-            <Modal show={state}>
-            <Modal.Header>Prueba</Modal.Header>
-            <Modal.Body>Prueba</Modal.Body>
-            <Modal.Footer>Prueba</Modal.Footer>
-            </Modal>
+            <Button>
+            open modal</Button>
         </div>
     );
 }
