@@ -1,6 +1,4 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import { history } from './_helpers/history';
-import { Alert } from './_components/Alert';
 
 import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
@@ -8,10 +6,13 @@ import Home from './pages/home/home';
 import Panel from './components/sideBar';
 import PageNotFound from './pages/others/pageNotFound';
 
+import "primereact/resources/themes/saga-orange/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";         
+
 export default function app() {
     return (
-        <Router history={history}>
-            <Alert />
+        <Router>
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/auth/' >

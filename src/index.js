@@ -2,7 +2,6 @@ import React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import { alertService } from './_services/alert.service';
 
 import axios from 'axios';
 
@@ -15,7 +14,6 @@ axios.interceptors.request.use((request) => {
   if (error?.status?.code === 401) {
     localStorage.removeItem('token');
   } else if (error?.request?.status === 200) {
-    alertService.info('Revisa tu información',{ autoClose: true, keepAfterRouteChange: true });
     //Aqui mostrar la alerta de que algo trono
    //dispatch your error in a more user friendly manner
      /*if (DEBUG) {

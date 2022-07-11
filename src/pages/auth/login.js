@@ -1,12 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useRef} from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { alertService } from '../../_services/alert.service';
+
+import { Toast } from 'primereact/toast';
+import { Password } from 'primereact/password'
 
 import "./../../styles.css";
 
 
 export default function Login(){
+    const myToast = useRef(null);
+    const showToast = (severityValue, summaryValue, detailValue) => {   
+        myToast.current.show({severity: severityValue, summary: summaryValue, detail: detailValue});   
+    }
     const navigate = useNavigate();
     React.useEffect(() => {
         if (localStorage.getItem('token') != null) {
@@ -30,11 +36,11 @@ export default function Login(){
                 var role = btoa(res.data.data.user.role.name);
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', role); 
-                //a.login();
+                showToast('success','Success Message','The task was executed successfully.')
                 navigate('/panel/panel');
             }
           }, (error) => {
-            alertService.info('Algo ha salido mal',{ autoClose: true, keepAfterRouteChange: true });
+            showToast('error','Error','Check your credentials.')
           })
           //setIsSubmitted(true);
       }
@@ -56,7 +62,7 @@ export default function Login(){
                 </div>
                 <div className="input-container">
                     <label>Contraseña</label>
-                    <input type="password" name="password" onChange={handleChange} required />
+                    <Password name="password" onChange={handleChange} required toggleMask/>  
                 </div>
                 <div className="button-container">
                     <input type="submit" value="Iniciar sesión"/>
@@ -66,10 +72,11 @@ export default function Login(){
     );
     return (
         <div className="app">
+            <Toast ref={myToast} />
             <div className="login-form">
                 <div className="title">INICIO DE SESIÓN</div>
                 {renderForm}
-                <p>¿No tienes cuenta? <a href="/auth/signup">Regístrate ahora</a></p>
+                <p>¿No tienes cuenta? <NavLink to='/auth/signup'>Regístrate ahora</NavLink></p>
             </div>
         </div>
     );

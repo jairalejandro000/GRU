@@ -1,7 +1,7 @@
 import React from 'react';
 import './../../styles.css';
 import { useNavigate } from 'react-router-dom';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -62,8 +62,6 @@ export default function Panel(){
     return (
         <div className='container'>
             <Bar data={data} options={options}/>
-            <Button>
-            open modal</Button>
         </div>
     );
 }

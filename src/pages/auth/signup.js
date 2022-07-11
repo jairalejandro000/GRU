@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { alertService } from '../../_services/alert.service';
 
@@ -66,7 +66,7 @@ export default function Sigup(){
             <div className="signup-form">
                 <div className="title">REGISTRO</div>
                 {renderForm}
-                <p>¿Ya tienes cuenta? <a href="/auth/login">Inicia sesión ahora</a></p>
+                <p>¿Ya tienes cuenta? <NavLink to='/auth/login'>Inicia sesión ahora</NavLink></p>
             </div>
         </div>
     );

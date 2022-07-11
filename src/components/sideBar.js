@@ -7,10 +7,8 @@ import Users from '../pages/panel/users';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserAlt } from 'react-icons/fa';
 import { BiHomeAlt } from 'react-icons/bi';
-import { FaRegUserCircle } from 'react-icons/fa';
 
 import './style.css';
-import gru from '../assets/gru.png';
 
 export default function SideBar(){
   const navigate = useNavigate();
