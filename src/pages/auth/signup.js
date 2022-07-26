@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useRef }  from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { alertService } from '../../_services/alert.service';
+
+import { InputText } from 'primereact/inputtext';
+import { Toast } from 'primereact/toast';
+import { Password } from 'primereact/password'; 
 
 import './../../styles.css';
 
 export default function Sigup(){
+    const myToast = useRef(null);
+    const showToast = (severityValue, summaryValue, detailValue) => {   
+        myToast.current.show({severity: severityValue, summary: summaryValue, detail: detailValue});   
+    }
     const navigate = useNavigate();
     React.useEffect(() => {
         if (localStorage.getItem('token') != null) {
@@ -24,9 +31,10 @@ export default function Sigup(){
           .then(res => {
             console.log("ress", res);
             if(res.data.msg === "Hecho!"){
+                showToast('success','Success Message','The task was executed successfully.');
                 navigate('/auth/login')
             }else{
-                alertService.info(res.data.original.msg.email,{ autoClose: false, keepAfterRouteChange: true });
+                showToast('error','Error','Check your credentials.');   
             }
           })
     };
@@ -45,15 +53,15 @@ export default function Sigup(){
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <label>Nombre</label>
-                    <input type="text" name="username" onChange={handleChange} required/>
+                    <InputText type="text" name="username" onChange={handleChange} required />
                 </div>
                 <div className="input-container">
                     <label>Correo electrónico</label>
-                    <input type="email" name="email" onChange={handleChange} required/>
+                    <InputText type="email" name="email" onChange={handleChange} required/>
                 </div>
                 <div className="input-container">
                     <label>Contraseña</label>
-                    <input type="password" name="password" onChange={handleChange} required/>
+                    <Password  name="password" onChange={handleChange} required toggleMask /> 
                 </div>
                 <div className="button-container">
                     <input type="submit" value="Registrarse"/>
@@ -63,6 +71,7 @@ export default function Sigup(){
     );
     return (
         <div className="app">
+            <Toast ref={myToast}/>
             <div className="signup-form">
                 <div className="title">REGISTRO</div>
                 {renderForm}

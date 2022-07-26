@@ -54,7 +54,7 @@
 
 
 .sidebar .closebtn {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
@@ -68,14 +68,13 @@
   margin: 10px;
   border: none;
 }
-
 /*.openbtn:hover {
   font-size: 25px;
 }*/
 
 #main {
   transition: margin-left .5s;
-  background-color: rgba(0, 0, 0, 0.773);
+  background-color: #0a0a0adc;
 }
 
 .main {
@@ -85,7 +84,7 @@
   right: 0;
   height: 100%;
   width: 100%;
-  bottom: 10%;
+  background-color: #0a0a0adc;
 }
 
 @media screen and (max-height: 450px) {
@@ -95,7 +94,11 @@
 
 .toolbar {
   height: 10%;
-  width: 90%;
+  width: 100%;
+}
+
+.tb{
+  background-color:aqua;
 }
 
 .toolbar button{
@@ -145,3 +148,13 @@
 }
 
 .show {display: block;}
+
+
+.dialog-demo p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.dialog-demo .p-dialog .p-button {
+  min-width: 6rem;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './../../styles.css';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -14,7 +14,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, getDatasetAtEvent } from "react-chartjs-2";
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -28,6 +28,7 @@ ChartJS.register(
   );
 
 export default function Panel(){
+    const chartRef = useRef();
     console.log(decodeURI(localStorage.getItem('token')))
     const navigate = useNavigate();
     React.useEffect(() => {
@@ -48,7 +49,7 @@ export default function Panel(){
     const data = {
         labels: ['Jair', 'Adriana', 'Capito', 'Kappita', 'Ferlozzzz'],
         datasets: [{
-            labels: 'Desempeño',
+            label: 'Desempeño',
             hoverBackgroundColor: '#FFFFFF',
             backgroundColor: '#FBE940',
             data: [12, 13, 11, 16, 1]
@@ -61,7 +62,10 @@ export default function Panel(){
     }
     return (
         <div className='container'>
-            <Bar data={data} options={options}/>
+            <Bar 
+            data={data} 
+            options={options}
+            />
         </div>
     );
 }
