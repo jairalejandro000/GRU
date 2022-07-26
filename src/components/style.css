@@ -93,7 +93,9 @@
 }
 
 .toolbar {
-  height: 10%;
+  height: 20%;
+  margin-top: 2%;
+  margin-left: 1%;
   width: 100%;
 }
 

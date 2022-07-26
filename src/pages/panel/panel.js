@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './../../styles.css';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,8 +12,8 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from "chart.js";
-import { Bar, getDatasetAtEvent } from "react-chartjs-2";
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -28,7 +27,6 @@ ChartJS.register(
   );
 
 export default function Panel(){
-    const chartRef = useRef();
     console.log(decodeURI(localStorage.getItem('token')))
     const navigate = useNavigate();
     React.useEffect(() => {

@@ -7,7 +7,7 @@ import { createBrowserHistory } from 'history';
 import axios from 'axios';
 
 const history = createBrowserHistory();
-const DEBUG = process.env.REACT_APP_NODE_ENV !== 'production';
+//const DEBUG = process.env.REACT_APP_NODE_ENV !== 'production';
 axios.interceptors.request.use(request => {
   const token =  decodeURI(localStorage.getItem('token'));
   request.headers.common['Authorization']= `Bearer ${token}`;
@@ -20,14 +20,12 @@ axios.interceptors.response.use(
   }, 
   function(error) {
     switch(error.response.status){
-      case 401: {
-        localStorage.clear();
-        history.push('/auth/login');
-      }
+      case 401: 
+        localStorage.clear()
+        history.push('/auth/login')
       break;
-      case 400: {
-        console.log("ta entrando al 400");
-      }
+      default:
+        console.log('algo trono')
       break;
     }
   }
