@@ -5,7 +5,7 @@ import Panel from '../pages/panel/panel';
 import Users from '../pages/panel/users';
 import Module from '../pages/panel/modulo';
 
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { RiMenu5Fill } from 'react-icons/ri';
 import { BiHomeAlt } from 'react-icons/bi';
 import { VscSignOut } from 'react-icons/vsc';
 
@@ -43,11 +43,15 @@ export default class SideBar extends React.Component{
     this.nav = true;
     document.getElementById('mySidebar').style.width = '220px';
     document.getElementById('main').style.marginLeft = '220px';
+    document.getElementById('burguer').style.display = 'none';
+    document.getElementById('closebtn').style.display = 'inline';
   }
   closeNav = () => {
     this.nav = false;
-    document.getElementById('mySidebar').style.width = '0';
-    document.getElementById('main').style.marginLeft = '0';
+    document.getElementById('mySidebar').style.width = '0px';
+    document.getElementById('main').style.marginLeft = '0px';
+    document.getElementById('burguer').style.display = 'inline';
+    document.getElementById('closebtn').style.display = 'none';
   }
   openDialog = () => {
     this.setState({statusDisplay: true});
@@ -74,16 +78,17 @@ export default class SideBar extends React.Component{
     {!this.state.status ? <></> : 
     <div>
       <div id='mySidebar' className='sidebar'>
-        <button className='home' onClick={this.ranking}>
-        <BiHomeAlt size={35}/>
-        </button>
-        {this.a ? <NavLink to='/panel/users'>Usuarios</NavLink> : null}
-        {this.a ? <NavLink to='/auth/login'>Indicadores</NavLink> : null}
-        {this.a ? <NavLink to='/panel/module'>Categorías</NavLink> : null}
+        <BiHomeAlt className='home' onClick={this.ranking} size={35}/>
+        <RiMenu5Fill id='closebtn' className='closebtn' size={35} onClick={this.clickButton}/> 
+        <div style={{marginTop: '25px'}}>
+          {this.a ? <NavLink to='/panel/users'>Usuarios</NavLink> : null}
+          {this.a ? <NavLink to='/auth/login'>Indicadores</NavLink> : null}
+          {this.a ? <NavLink to='/panel/module'>Categorías</NavLink> : null}
+        </div>
       </div>
       <div id='main' className='main'>
         <div className='toolbar'>
-              <GiHamburgerMenu className='openbtn' onClick={this.clickButton}/> 
+              <RiMenu5Fill id='burguer' className='openbtn' onClick={this.clickButton}/>
               <h1 style={{fontSize: 70, margin: 20, color: 'white', display: 'inline'}}>GRU</h1>
               <p style={{fontSize: 30, marginBottom: 10, color: 'white', display: 'inline'}}>Sistema de Gestion de Rendimiento Umano</p>
             <div className='dropdown' style={{float: 'right', margin: 20, display: 'inline'}}>
@@ -96,14 +101,14 @@ export default class SideBar extends React.Component{
             </Dialog>
           </div>
         </div>
-          <Routes>
-              <Route path='panel' element={<Panel/>}/>
-              <Route path='users' element={<Users/>}/>
-              <Route path='module' element={<Module/>}/>
-              <Route path='*' element={<Panel/>}/>
-          </Routes>
       </div>
+      <Routes>
+          <Route path='panel' element={<Panel/>}/>
+          <Route path='users' element={<Users/>}/>
+          <Route path='module' element={<Module/>}/>
+          <Route path='*' element={<Panel/>}/>
+      </Routes>
     </div> }
-    </div> 
+  </div> 
   }
 }

@@ -53,11 +53,13 @@ export default class Users extends React.Component{
   render(){
     return <div className='container'>
       {!this.state.status || this.state.users == null ? 
-      <Grid
-        height = '100'
-        width = '110'
-        color = '#FBE940'
-      /> :
+      <div className='loading'>
+        <Grid
+          height = '100'
+          width = '110'
+          color = '#FBE940'
+        />
+      </div> :
       <DataTable value={this.users} responsiveLayout="scroll">
         <Column field="name" header="Usuario"></Column>
         <Column field="email" header="Correo electrónico"></Column>
