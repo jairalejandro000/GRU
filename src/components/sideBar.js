@@ -1,21 +1,27 @@
 import React from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 
 import Panel from '../pages/panel/panel';
 import Users from '../pages/panel/users';
 import Module from '../pages/panel/modulo';
+import Categories from '../pages/panel/categories';
 
 import { RiMenu5Fill } from 'react-icons/ri';
 import { BiHomeAlt } from 'react-icons/bi';
 import { VscSignOut } from 'react-icons/vsc';
+
 
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 
 import './style.css';
 
+export function N(path){
+  const navigate = useNavigate()
+  navigate('/home')
+}
+
 export default class SideBar extends React.Component{
-  //navigate = useNavigate();
   role = "";
   a = false;
   nav = false;
@@ -24,6 +30,7 @@ export default class SideBar extends React.Component{
     statusDisplay: false
   }
   async componentDidMount(){
+    console.log(decodeURI(localStorage.getItem('token')))
     this.role = await atob(localStorage.getItem('user'));
     if(this.role === 'minion'){
       this.a = await false;
@@ -60,18 +67,14 @@ export default class SideBar extends React.Component{
     this.setState({statusDisplay: false});
   }
   logOut = () => {
-    try{
-      //localStorage.clear();
-      console.log("navigate");
-      //this.props.history.push('/auth/login');
-      this.navigate('/');
-    }catch{
-    }
+    //localStorage.clear();
+    console.log('navigate');
+    //NavigateFunction('/auth/login')
+    this.props.navigation('/auth/login');
   }
   ranking = () => {
-    console.log("navigate")
-    this.props.history.push("/login")
-    //navigate('/panel/panel')
+    useNavigate('/auth/login');
+   //props.navigate('/panel/panel');
   }
   render(){
     return <div>
@@ -83,7 +86,7 @@ export default class SideBar extends React.Component{
         <div style={{marginTop: '25px'}}>
           {this.a ? <NavLink to='/panel/users'>Usuarios</NavLink> : null}
           {this.a ? <NavLink to='/auth/login'>Indicadores</NavLink> : null}
-          {this.a ? <NavLink to='/panel/module'>Categorías</NavLink> : null}
+          {this.a ? <NavLink to='/panel/categories'>Categorías</NavLink> : null}
         </div>
       </div>
       <div id='main' className='main'>
@@ -95,7 +98,7 @@ export default class SideBar extends React.Component{
                 <VscSignOut size={35} onClick={this.openDialog} className='user dropbtn'/>
             </div>
           <div className="dialog-demo">
-            <Dialog header="¿Seguro de cerrar sesión?" visible={this.state.statusDisplay} style={{ width: '50vw' }} onHide={this.closeDialog}>
+            <Dialog header="¿Seguro de cerrar sesión?" visible={this.state.statusDisplay} draggable={false} resizable={false} style={{ width: '50vw' }} onHide={this.closeDialog}>
               <Button label="Cerrar sesión" onClick={this.logOut} className="p-button-raised p-button-warning p-button-rounded"/>
               <Button label="Cancelar" onClick={this.closeDialog} className="p-button-raised p-button-danger p-button-rounded"/>
             </Dialog>
@@ -106,6 +109,7 @@ export default class SideBar extends React.Component{
           <Route path='panel' element={<Panel/>}/>
           <Route path='users' element={<Users/>}/>
           <Route path='module' element={<Module/>}/>
+          <Route path='categories' element={<Categories/>}/>
           <Route path='*' element={<Panel/>}/>
       </Routes>
     </div> }

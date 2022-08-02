@@ -21,11 +21,15 @@ axios.interceptors.response.use(
   function(error) {
     switch(error.response.status){
       case 401: 
-        localStorage.clear()
+        localStorage.clear();
         history.push('/auth/login')
       break;
+      case 400:
+        console.log(error);
+      break;
+      
       default:
-        console.log('algo trono')
+        
       break;
     }
   }

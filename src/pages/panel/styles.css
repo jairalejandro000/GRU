@@ -10,3 +10,7 @@
     justify-content: center;
     align-items: center;
 }
+DataTable column:hover{
+    transform: scale(1.2);
+    color:aquamarine;
+}
