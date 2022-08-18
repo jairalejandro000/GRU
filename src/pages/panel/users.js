@@ -1,29 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import { Grid } from 'react-loader-spinner';
-  //Audio,
-  //BallTriangle,
-  //Bars,
-  //Circles,
-  //Grid,
-  //Hearts,
-  //MutatingDots,
-  //Oval,
-  //Plane,
-  //RevolvingDot,
-  //Rings,
-  //TailSpin,
-  //Triangle,
-  //Watch
 
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
 
 import './styles.css';
-export default class Users extends React.Component{
+class UsersIndex extends React.Component{
   users = [];
   roles = [
     { id: 1, name: 'Minion' },
@@ -45,10 +34,13 @@ export default class Users extends React.Component{
     statusDialogInfo: false
   }
   edit = false;
+  isNefario = false;
+  isGru = false;
   async componentDidMount(){
     await axios.get('http://104.131.16.194/api/user/')
     .then(res => {
         this.users = [];
+        this.setState(this.defatultState);
         for(let e of res.data.data){
           const row = {
             id: e.id,
@@ -62,8 +54,13 @@ export default class Users extends React.Component{
         this.setState({status: true, users: this.users});
         console.log(this.state);
     });
-    if(localStorage.getItem('token') == null || atob(localStorage.getItem('user')) !== 'gru') {
-        console.log("ya valiste padrino")
+    if(atob(localStorage.getItem('user')) === 'nefario'){
+      //permiso para actualizar menos el rol
+      this.isNefario = true;
+    }
+    if(atob(localStorage.getItem('user')) === 'gru'){
+      //permiso para hacer de todo
+      this.isGru = true;
     }
   }
   selectionChange(x){
@@ -107,22 +104,27 @@ export default class Users extends React.Component{
       ...this.state.user,
       [name]: value
     };
-    console.log(newValues);
+    if(name === 'role_id'){
+      newValues.role_id = value.id;
+    }
     this.setState({user: newValues});
     /*if (cansubmit) {
         document.getElementById('submitbutton').disabled = false;
     }*/
   }
-  submit = (edit) => {
-    console.log(this.state);
+  async submit(edit) {
     if(edit){
-      axios.put(`http://104.131.16.194/api/user/${this.state.user.id}`, this.state.user)
+      await axios.put(`http://104.131.16.194/api/user/${this.state.user.id}`, this.state.user)
       .then(res =>{
-        console.log(this.state.user);
-        console.log(res);
+        console.log(res)
       });
-
+    }else{
+      await axios.post(`http://104.131.16.194/api/user/`, this.state.user)
+      .then(res =>{
+        console.log(res)
+      });
     }
+    await this.afterSubmit()
 
   }
   render(){
@@ -143,13 +145,13 @@ export default class Users extends React.Component{
           : <Button label='Nuevo registro' icon='pi pi-plus' className='p-button-success mr-2' onClick={() =>this.openDialog(false)}/>
         }
         <DataTable value={this.users} paginator rows={5}
-            selection={this.state.user} onSelectionChange={(e) => this.selectionChange(e.value)} 
+            selection={this.state.user} onSelectionChange={(e) => this.selectionChange(e.value)}
             selectionMode='single' dataKey='id' responsiveLayout='scroll' 
-            stateKey='dt-state-demo-session' emptyMessage='No users found.'
+            stateKey='dt-state-demo-session' emptyMessage='No se encontró ningún usuario.'
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
             <Column field='name' header='Usuario' sortable></Column>
             <Column field='email' header='Correo electrónico' sortable></Column>
-            <Column field='role_id' header='Rol' sortable></Column>
+            <Column field='role_name' header='Rol' sortable></Column>
         </DataTable>
       </div>
       }
@@ -168,12 +170,9 @@ export default class Users extends React.Component{
               onChange={this.handleChange} required/>
           </div>
           <div className='input-container'>
-              <label>Password</label>
-              <InputText name='password' onChange={this.handleChange} required/>
-          </div>
-          <div className='input-container'>
               <label>Rol</label>
-              <InputText name='role' value={this.state.user !== null ? this.state.user.role_name : null} readOnly/>
+              <Dropdown name='role_id' value={this.state.user !== null ? this.roles[this.state.user.role_id - 1] : null} 
+              options={this.roles} onChange={this.handleChange} optionLabel="name" />
           </div>
           <div className='input-container'>
             <Button label='Actualizar registro' id='submitButton' onClick={() => this.submit(true)} className='p-button-warning mr-2'/>
@@ -189,11 +188,19 @@ export default class Users extends React.Component{
               <InputText name='email' onChange={this.handleChange} required/>
           </div>
           <div className='input-container'>
+              <label>Password</label>
+          {this.isNefario === true ? 
+          <InputText name='password' onChange={this.handleChange} readOnly/>
+          :
+          <InputText name='password' onChange={this.handleChange} required/>
+          }
+          </div>
+          <div className='input-container'>
               <label>Rol</label>
               <InputText placeholder='Minion' disabled/>
           </div>
           <div className='input-container'>
-            <Button label='Añadir registro' id='submitButton' onClick={() => this.createUser(false)} className='p-button-warning mr-2'/>
+            <Button label='Añadir registro' id='submitButton' onClick={() => this.submit(false)} className='p-button-warning mr-2'/>
           </div>
         </div> }
       </Dialog>
@@ -204,4 +211,16 @@ export default class Users extends React.Component{
       </Dialog>
     </div>
   }
+}
+export default function Users(){
+  const navigate = useNavigate();
+  React.useEffect(() =>{
+    if(localStorage.getItem('token') === null || atob(localStorage.getItem('user')) === 'minion') {
+      navigate('/auth/login');
+    }
+  });
+  return(
+    <UsersIndex/>
+  );
+
 }

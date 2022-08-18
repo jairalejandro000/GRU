@@ -23,16 +23,19 @@ export default function Sigup(){
         username: "",
         email: "",
         password: "",
-      });
-    const handleSubmit = (event) => {
+    });
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+    function handleSubmit(event){
         event.preventDefault();
         console.log(values);
-        axios.post(`http://127.0.0.1:8000/api/auth/signup`, values)
+        axios.post(`http://104.131.16.194/api/auth/signup`, values)
           .then(res => {
             console.log("ress", res);
             if(res.data.msg === "Hecho!"){
-                showToast('success','Success Message','The task was executed successfully.');
-                navigate('/auth/login')
+                showToast('success','Success Message','SignUp successful.');
+                delay(2000).then(() => navigate('/auth/login'));
             }else{
                 showToast('error','Error','Check your credentials.');   
             }

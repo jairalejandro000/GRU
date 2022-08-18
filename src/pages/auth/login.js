@@ -12,7 +12,7 @@ import './../../styles.css';
 export default function Login(){
     const myToast = useRef(null);
     const showToast = (severityValue, summaryValue, detailValue) => {   
-        myToast.current.show({severity: severityValue, summary: summaryValue, detail: detailValue});   
+        myToast.current.show({severity: severityValue, summary: summaryValue, detail: detailValue, life: 1000});   
     }
     const navigate = useNavigate();
     React.useEffect(() => {
@@ -26,6 +26,9 @@ export default function Login(){
         email: "",
         password: ""
       });
+      function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
       function handleSubmit(evt) {
         evt.preventDefault();
         console.log(values);
@@ -37,13 +40,12 @@ export default function Login(){
                 var role = btoa(res.data.data.user.role.name);
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', role); 
-                showToast('success','Success Message','The task was executed successfully.');
-                navigate('/panel/panel');
+                showToast('success', 'Success', 'LogIn successful.')
+                delay(2000).then(() => navigate('/panel/panel'));
+            }else{
+                showToast('error','Error','Check your credentials.');
             }
-          }, (error) => {
-            showToast('error','Error','Check your credentials.');
-          })
-          //setIsSubmitted(true);
+        })
       }
       function handleChange(evt) {
         const { target } = evt;

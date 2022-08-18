@@ -2,11 +2,9 @@ import React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import { createBrowserHistory } from 'history';
 
 import axios from 'axios';
 
-const history = createBrowserHistory();
 //const DEBUG = process.env.REACT_APP_NODE_ENV !== 'production';
 axios.interceptors.request.use(request => {
   const token =  decodeURI(localStorage.getItem('token'));
@@ -22,7 +20,7 @@ axios.interceptors.response.use(
     switch(error.response.status){
       case 401: 
         localStorage.clear();
-        history.push('/auth/login')
+        window.location.reload(true)
       break;
       case 400:
         console.log(error);

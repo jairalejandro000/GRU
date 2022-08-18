@@ -3,8 +3,10 @@ import { Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 
 import Panel from '../pages/panel/panel';
 import Users from '../pages/panel/users';
+import Roles from '../pages/panel/roles';
 import Module from '../pages/panel/modulo';
 import Categories from '../pages/panel/categories';
+import Traicings from '../pages/panel/traicings';
 
 import { RiMenu5Fill } from 'react-icons/ri';
 import { BiHomeAlt } from 'react-icons/bi';
@@ -67,14 +69,11 @@ export default class SideBar extends React.Component{
     this.setState({statusDisplay: false});
   }
   logOut = () => {
-    //localStorage.clear();
-    console.log('navigate');
-    //NavigateFunction('/auth/login')
-    this.props.navigation('/auth/login');
+    localStorage.clear();
+    window.location.reload(true)
   }
   ranking = () => {
-    useNavigate('/auth/login');
-   //props.navigate('/panel/panel');
+    window.location.replace('http://localhost:3000/panel/panel');
   }
   render(){
     return <div>
@@ -84,8 +83,9 @@ export default class SideBar extends React.Component{
         <BiHomeAlt className='home' onClick={this.ranking} size={35}/>
         <RiMenu5Fill id='closebtn' className='closebtn' size={35} onClick={this.clickButton}/> 
         <div style={{marginTop: '25px'}}>
+          {this.a ? <NavLink to='/panel/roles'>Roles</NavLink> : null}
           {this.a ? <NavLink to='/panel/users'>Usuarios</NavLink> : null}
-          {this.a ? <NavLink to='/auth/login'>Indicadores</NavLink> : null}
+          {this.a ? <NavLink to='/panel/traicings'>Seguimientos</NavLink> : null}
           {this.a ? <NavLink to='/panel/categories'>Categorías</NavLink> : null}
         </div>
       </div>
@@ -107,9 +107,11 @@ export default class SideBar extends React.Component{
       </div>
       <Routes>
           <Route path='panel' element={<Panel/>}/>
+          <Route path='roles' element={<Roles/>}/>
           <Route path='users' element={<Users/>}/>
           <Route path='module' element={<Module/>}/>
-          <Route path='categories' element={<Categories/>}/>
+          <Route path='categories' element={<Categories/>}/>  
+          <Route path='traicings' element={<Traicings/>}/>
           <Route path='*' element={<Panel/>}/>
       </Routes>
     </div> }
