@@ -14,6 +14,7 @@ import { Dropdown } from 'primereact/dropdown';
 import './styles.css';
 class UsersIndex extends React.Component{
   users = [];
+  nefarios = [];
   roles = [
     { id: 1, name: 'Minion' },
     { id: 2, name: 'Nefario' },
@@ -24,14 +25,16 @@ class UsersIndex extends React.Component{
     users: null,
     user: null,
     statusDialog: false,
-    statusDialogInfo: false
+    statusDialogInfo: false,
+    statusDialogNefario: false
   }
   state = {
     status: false,
     users: null,
     user: null,
     statusDialog: false,
-    statusDialogInfo: false
+    statusDialogInfo: false,
+    statusDialogNefario: false
   }
   edit = false;
   isNefario = false;
@@ -68,18 +71,33 @@ class UsersIndex extends React.Component{
   }
   openDialog = (edit) =>{
     if(edit === true){
+      this.nefarios = [];
       this.edit = true;
       this.setState({statusDialog: true});
-    }else{
+    }if(edit === false){
       this.edit = false;
       this.setState({statusDialog: true, user: null});
     }
+    if(edit === "Nefario"){
+      this.nefarios = this.users.filter(e => e.role_id === 2);
+      console.log(this.nefarios)
+      this.setState({statusDialogNefario: true});
+    }
+  }
+  updateNefario = () =>{
+    axios.post('http://104.131.16.194/api/nefario-minion/', this.state.user)
+    .then(res => {
+        this.afterSubmit();
+    })
   }
   closeDialog = (info) =>{
     if(info === true){
       this.setState({statusDialogInfo: false});
     }else{
       this.setState({statusDialog: false});
+    }
+    if(info === "Nefario"){
+      this.setState({statusDialogNefario: false});
     }
     this.setState({user: null});
   }
@@ -95,9 +113,11 @@ class UsersIndex extends React.Component{
   afterSubmit = () =>{
     this.closeDialog(true);
     this.closeDialog(false);
+    this.closeDialog("Nefario");
     this.componentDidMount();
   }
   handleChange = (evt) => {
+    console.log(evt)
     const { target } = evt;
     const { name, value } = target;
     const newValues = {
@@ -107,6 +127,11 @@ class UsersIndex extends React.Component{
     if(name === 'role_id'){
       newValues.role_id = value.id;
     }
+    if(name === 'nefario_id'){
+      newValues.minion_id = this.state.user.id;
+      newValues.nefario_id = value.id;
+    }
+    console.log(newValues)
     this.setState({user: newValues});
     /*if (cansubmit) {
         document.getElementById('submitbutton').disabled = false;
@@ -141,6 +166,9 @@ class UsersIndex extends React.Component{
         {this.state.user !== null ? <div> 
           <Button label='Nuevo registro' icon='pi pi-plus' className='p-button-success mr-2' onClick={() =>this.openDialog(false)}/>
           <Button label='Editar' icon='pi pi-pencil' className='p-button-warning mr-2' onClick={() =>this.openDialog(true)}/>
+          {this.state.user.role_id === 1 ? 
+          <Button label='Asignar nefario' icon='pi pi-pencil' className='p-button-warning mr-2' onClick={() =>this.openDialog("Nefario")}/>
+           : null }
           <Button label='Eliminar' icon='pi pi-trash' className='p-button-danger mr-2' onClick={() => this.deleteDialog()}/> </div>
           : <Button label='Nuevo registro' icon='pi pi-plus' className='p-button-success mr-2' onClick={() =>this.openDialog(false)}/>
         }
@@ -203,6 +231,19 @@ class UsersIndex extends React.Component{
             <Button label='Añadir registro' id='submitButton' onClick={() => this.submit(false)} className='p-button-warning mr-2'/>
           </div>
         </div> }
+      </Dialog>
+      <Dialog header={<h4>Nefario - Minion</h4>} visible={this.state.statusDialogNefario} draggable={false} 
+      resizable={false} style={{ width: '70vw' }} onHide={() => this.closeDialog("Nefario")}>
+      {this.isGru ? 
+          <>
+          <div className='input-container'>
+            <label>Nefario</label>
+            <Dropdown name='nefario_id' value={this.state.user !== null && this.state.user.nefario_id !== undefined ? this.nefarios.filter(e => e.id === this.state.user.nefario_id)[0] : null}
+            options={this.nefarios} onChange={this.handleChange} optionLabel="name" />
+            <Button label='Actualizar Nefario' icon='pi pi-check' className='p-button-warning mr-2' onClick={() => this.updateNefario()}/>
+          </div>
+          </>
+           : null}
       </Dialog>
       <Dialog header={<h4>¿Seguro de eliminar el registro?</h4>} visible={this.state.statusDialogInfo} draggable={false} 
       resizable={false} style={{ width: '70vw' }} onHide={() => this.closeDialog(true)}>
